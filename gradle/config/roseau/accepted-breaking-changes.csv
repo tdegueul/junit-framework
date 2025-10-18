@@ -1,0 +1,2 @@
+type;symbol;kind;nature;location
+org.junit.platform.engine.TestTag;org.junit.platform.engine.TestTag.create(java.lang.String);METHOD_REMOVED;DELETION;org/junit/platform/engine/TestTag.java:115
