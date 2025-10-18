@@ -42,8 +42,9 @@ public final class DiscoverySelectorIdentifier {
 	 * @param prefix the prefix; never {@code null} or blank
 	 * @param value the value; never {@code null} or blank
 	 */
-	public static DiscoverySelectorIdentifier create(String prefix, String value) {
-		return new DiscoverySelectorIdentifier(prefix, value);
+	// A breaking change in a public API
+	public static DiscoverySelectorIdentifier create(String prefix, CharSequence value) {
+		return new DiscoverySelectorIdentifier(prefix, value.toString());
 	}
 
 	/**

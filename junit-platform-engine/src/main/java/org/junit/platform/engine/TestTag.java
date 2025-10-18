@@ -111,8 +111,9 @@ public final class TestTag implements Serializable {
 	 * syntactically <em>valid</em>
 	 * @see TestTag#isValid(String)
 	 */
-	public static TestTag create(String name) throws PreconditionViolationException {
-		return new TestTag(name);
+	// A breaking change in a public API
+	public static TestTag create(CharSequence name) throws PreconditionViolationException {
+		return new TestTag(name.toString());
 	}
 
 	private TestTag(String name) {

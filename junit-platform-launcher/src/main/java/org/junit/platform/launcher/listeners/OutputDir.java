@@ -100,7 +100,8 @@ public class OutputDir {
 		return path;
 	}
 
-	public Path createFile(String prefix, String extension) throws UncheckedIOException {
+	// A breaking change in a @API(status = INTERNAL)
+	public Path createFile(String prefix, CharSequence extension) throws UncheckedIOException {
 		String filename = "%s-%d.%s".formatted(prefix, positiveLong(random), extension);
 		Path outputFile = path.resolve(filename);
 

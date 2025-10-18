@@ -96,4 +96,6 @@ import org.apiguardian.api.API;
 @Documented
 @API(status = STABLE, since = "5.0")
 public @interface AfterAll {
+	// A compatible change
+	String withDefault() default "";
 }
