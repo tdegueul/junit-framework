@@ -85,9 +85,7 @@ val roseau by tasks.registering(RoseauDiff::class) {
 }
 
 val japicmp by tasks.registering(JapicmpTask::class) {
-	if (gradle.startParameter.isOffline) {
-		enabled = false
-	}
+	enabled = false
 	onlyIf { extension.enabled.get() }
 	shouldRunAfter(roseau)
 
