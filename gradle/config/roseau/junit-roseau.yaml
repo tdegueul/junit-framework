@@ -1,0 +1,10 @@
+common:
+  excludes:
+    annotations:
+      - name: org.apiguardian.api.API
+        args: { status: org.apiguardian.api.API$Status.INTERNAL }
+reports:
+  - file: reports/roseau/breaking-changes.csv
+    format: CSV
+  - file: reports/roseau/breaking-changes.html
+    format: HTML

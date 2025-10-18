@@ -81,7 +81,9 @@ val roseau by tasks.registering(RoseauDiff::class) {
 	libraryClasspath.from(configurations.compileClasspath)
 	v1 = downloadPreviousReleaseJar.map { it.outputFiles.single() }
 	v2 = tasks.jar.flatMap { it.archiveFile }.map { it.asFile }
-	csvReport = layout.buildDirectory.file("reports/roseau/breaking-changes.csv")
+	val configDir = rootProject.layout.projectDirectory.dir("gradle/config/roseau")
+	yamlConfiguration = configDir.file("junit-roseau.yaml")
+	acceptedCsv = configDir.file("accepted-breaking-changes.csv")
 }
 
 val japicmp by tasks.registering(JapicmpTask::class) {

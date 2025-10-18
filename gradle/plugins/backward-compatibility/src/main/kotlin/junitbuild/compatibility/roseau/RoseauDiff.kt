@@ -6,7 +6,9 @@ import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.CompileClasspath
-import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.assign
 import org.gradle.process.ExecOperations
@@ -31,12 +33,16 @@ abstract class RoseauDiff : DefaultTask() {
     @get:CompileClasspath
     abstract val v2: RegularFileProperty
 
-    @get:OutputFile
-    abstract val csvReport: RegularFileProperty
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val yamlConfiguration: RegularFileProperty
+
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val acceptedCsv: RegularFileProperty
 
     @TaskAction
     fun run() {
-        csvReport.get().asFile.parentFile.mkdirs()
         val output = ByteArrayOutputStream()
         val result = execOperations.javaexec {
             mainClass = "io.github.alien.roseau.cli.RoseauCLI"
@@ -46,8 +52,9 @@ abstract class RoseauDiff : DefaultTask() {
                 "--v1", v1.get().asFile.absolutePath,
                 "--v2", v2.get().asFile.absolutePath,
                 "--diff",
-                "--report", csvReport.get().asFile.absolutePath,
-                "--fail",
+                "--config", yamlConfiguration.get().asFile.absolutePath,
+                "--ignored", acceptedCsv.get().asFile.absolutePath,
+                "--fail-on-bc"
             )
             standardOutput = output
             errorOutput = output
